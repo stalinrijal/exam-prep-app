@@ -7,9 +7,17 @@ import Link from 'next/link'
 import { ArrowLeft, Plus, Trash2, Eye, EyeOff, Save, Loader2, GripVertical, ChevronDown, ChevronUp } from 'lucide-react'
 import type { ExamSet, Question, QuestionType } from '@/lib/types'
 
-const EMPTY_QUESTION = {
+interface NewQuestion {
+  question_text: string
+  question_type: QuestionType
+  options: string[]
+  correct_answer: string
+  explanation: string
+}
+
+const EMPTY_QUESTION: NewQuestion = {
   question_text: '',
-  question_type: 'mcq' as const,
+  question_type: 'mcq',
   options: ['', '', '', ''],
   correct_answer: '',
   explanation: '',
@@ -27,7 +35,7 @@ export default function EditSetPage() {
 
   // New question form state
   const [showForm, setShowForm] = useState(false)
-  const [newQ, setNewQ] = useState<typeof EMPTY_QUESTION & { question_type: QuestionType }>({ ...EMPTY_QUESTION })
+  const [newQ, setNewQ] = useState<NewQuestion>({ ...EMPTY_QUESTION })
   const [formError, setFormError] = useState('')
 
   const fetchData = useCallback(async () => {
