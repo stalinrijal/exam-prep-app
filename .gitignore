@@ -1,28 +1,37 @@
 # dependencies
-node_modules/
-.pnp/
+/node_modules
+/.pnp
 .pnp.js
 
-# next.js build output
-.next/
-out/
+# testing
+/coverage
 
-# local environment variables
-.env.local
-.env.*.local
+# next.js
+/.next/
+/out/
 
-# logs
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 
-# OS files
-.DS_Store
+# local env files — NEVER commit these
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# editor folders
-.vscode/
+# vercel
+.vercel
 
-# temporary files
-*.tmp
-*.temp
+# typescript
+*.tsbuildinfo
+next-env.d.ts
