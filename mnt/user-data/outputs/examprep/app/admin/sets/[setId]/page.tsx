@@ -5,11 +5,19 @@ import { useParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { ArrowLeft, Plus, Trash2, Eye, EyeOff, Save, Loader2, GripVertical, ChevronDown, ChevronUp } from 'lucide-react'
-import type { ExamSet, Question } from '@/lib/types'
+import type { ExamSet, Question, QuestionType } from '@/lib/types'
 
-const EMPTY_QUESTION = {
+interface NewQuestion {
+  question_text: string
+  question_type: QuestionType
+  options: string[]
+  correct_answer: string
+  explanation: string
+}
+
+const EMPTY_QUESTION: NewQuestion = {
   question_text: '',
-  question_type: 'mcq' as const,
+  question_type: 'mcq',
   options: ['', '', '', ''],
   correct_answer: '',
   explanation: '',
@@ -27,7 +35,7 @@ export default function EditSetPage() {
 
   // New question form state
   const [showForm, setShowForm] = useState(false)
-  const [newQ, setNewQ] = useState({ ...EMPTY_QUESTION })
+  const [newQ, setNewQ] = useState<NewQuestion>({ ...EMPTY_QUESTION })
   const [formError, setFormError] = useState('')
 
   const fetchData = useCallback(async () => {
@@ -180,7 +188,7 @@ export default function EditSetPage() {
               <label className="label">Question Type</label>
               <select
                 value={newQ.question_type}
-                onChange={(e) => setNewQ({ ...newQ, question_type: e.target.value as any })}
+                onChange={(e) => setNewQ({ ...newQ, question_type: e.target.value as QuestionType })}
                 className="input"
               >
                 <option value="mcq">Multiple Choice (MCQ)</option>
